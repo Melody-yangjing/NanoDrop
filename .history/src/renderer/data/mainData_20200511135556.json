@@ -1,0 +1,17 @@
+[
+    {
+        "title":"UV-VIS",
+        "src":"@/assets/UV-VIs.png",
+        "path":"/UV-Vis"
+    },
+    {
+        "title":"Chemometric Method",
+        "src":"@/assets/Chemometric.png",
+        "path":"/UV-Vis"
+    },
+    {
+        "title":"Custom Method",
+        "src":"@/assets/Custom-Metho.png",
+        "path":"/UV-Vis"
+    }
+]

@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+      "target": "ES6",
+      "jsx": "react",
+      "baseUrl": ".",
+      "paths": {
+        "components/*": [
+          "client/components/*",
+        ],
+        "images/*": [
+          "client/images/*"
+        ],
+        "common/*": [
+          "client/common/*",
+        ],
+        "utils/*": [
+          "client/utils/*"
+        ],
+      }
+    },
+    "exclude": [
+      "node_modules", "public", "server"
+    ]
+  }
+  
