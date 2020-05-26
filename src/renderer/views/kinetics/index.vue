@@ -1,6 +1,6 @@
 <template>
-  <div class="custom-container">
-    custom
+  <div class="kinetics-container">
+      kinetics-container
   </div>
 </template>
 

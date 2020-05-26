@@ -1,15 +1,13 @@
 <template>
   <div>
-    <img src="/src/renderer/assets/logo.png" style="margin-top:20px">
     <!-- 内容 -->
-    <div class="content">
-      <el-tabs v-model="activeName" @tab-click="handleTabsChange" >
+    <div>
+      <el-tabs v-model="activeName" @tab-click="handleTabsChange">
         <el-tab-pane
           v-for="(item,index) in DataList"
           :key="index"
           :label="item.label"
           :name="item.name"
-          style="height:500px"
         >
           <component :is="item.content"></component>
         </el-tab-pane>
@@ -55,7 +53,7 @@ export default {
       activeName: "Nuclec",
       DataList: [
         {
-          label: "NUCLEC ACIDS",
+          label: "NUCLEC",
           name: "Nuclec",
           content: NUCLEC
         },
@@ -84,7 +82,7 @@ export default {
   },
   methods: {
     handleTabsChange(tab, event) {
-      // console.log(tab, event);
+      console.log(tab, event);
     },
     bottomClick(type) {
       switch (type) {
@@ -117,20 +115,6 @@ export default {
 
 
 <style lang="scss">
-.el-tabs__header{
-  margin: 0 32px 15px;
-}
-.el-tabs__item{
-  height: 60px;
-  line-height: 60px;
-  padding: 0 36px;
-}
-.el-tabs__nav-wrap::after{
-  background-color:transparent;
-}
-.content{
-  padding: 20px;
-}
 .bottom {
   display: flex;
   justify-content: center;

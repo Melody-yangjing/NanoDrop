@@ -1,18 +1,13 @@
 <template>
   <div>
-    <img src="/src/renderer/assets/logo.png" style="margin-top:20px">
     <!-- 内容 -->
-    <div class="content">
-      <el-tabs v-model="activeName" @tab-click="handleTabsChange" >
-        <el-tab-pane
-          v-for="(item,index) in DataList"
-          :key="index"
-          :label="item.label"
-          :name="item.name"
-          style="height:500px"
-        >
-          <component :is="item.content"></component>
-        </el-tab-pane>
+    <div>
+      <el-tabs v-model="activeName" @tab-click="handleClick" >
+        <el-tab-pane label="NUCLEC ACIDS" name="NUCLEC">NUCLEC</el-tab-pane>
+        <el-tab-pane label="PROTEINS" name="PROTEINS">PROTEINS</el-tab-pane>
+        <el-tab-pane label="OD66" name="OD66">OD66</el-tab-pane>
+        <el-tab-pane label="CUSTOM" name="CUSTOM">CUSTOM</el-tab-pane>
+        <el-tab-pane label="KINETICS" name="KINETICS">KINETICS</el-tab-pane>
       </el-tabs>
     </div>
     <!-- 底部 -->
@@ -43,49 +38,20 @@
 <script>
 import MainDataList from "@/data/mainData.json";
 
-import NUCLEC from "@/views/nuclecAcids";
-import PROTEINS from "@/views/proteins";
-import OD600 from "@/views/od600";
-import CUSTOM from "@/views/custom";
-import KINETICS from "@/views/kinetics";
+import NUCLEC from 'nuclecAcids'
+import PROTEINS from 'proteins'
+import OD66 from 'od66'
+import CUSTOM from 'custom'
+import KINETICS from 'kinetics'
 export default {
   data() {
     return {
       MainDataList,
-      activeName: "Nuclec",
-      DataList: [
-        {
-          label: "NUCLEC ACIDS",
-          name: "Nuclec",
-          content: NUCLEC
-        },
-        {
-          label: "PROTEINS",
-          name: "Proteins",
-          content: PROTEINS
-        },
-        {
-          label: "OD600",
-          name: "Od600",
-          content: OD600
-        },
-        {
-          label: "CUSTOM",
-          name: "Custom",
-          content: CUSTOM
-        },
-        {
-          label: "KINETICS",
-          name: "Kinetics",
-          content: KINETICS
-        }
-      ]
+      activeName:'first'
     };
   },
   methods: {
-    handleTabsChange(tab, event) {
-      // console.log(tab, event);
-    },
+    handleClick(){},
     bottomClick(type) {
       switch (type) {
         case "history":
@@ -117,20 +83,6 @@ export default {
 
 
 <style lang="scss">
-.el-tabs__header{
-  margin: 0 32px 15px;
-}
-.el-tabs__item{
-  height: 60px;
-  line-height: 60px;
-  padding: 0 36px;
-}
-.el-tabs__nav-wrap::after{
-  background-color:transparent;
-}
-.content{
-  padding: 20px;
-}
 .bottom {
   display: flex;
   justify-content: center;

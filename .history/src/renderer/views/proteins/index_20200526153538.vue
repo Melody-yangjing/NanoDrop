@@ -1,6 +1,6 @@
 <template>
-  <div class="custom-container">
-    custom
+  <div class="protenis-container">
+      protenis-container
   </div>
 </template>
 

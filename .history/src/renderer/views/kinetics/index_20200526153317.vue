@@ -1,6 +1,6 @@
 <template>
-  <div class="custom-container">
-    custom
+  <div class="nuc-container">
+      nuc-container
   </div>
 </template>
 

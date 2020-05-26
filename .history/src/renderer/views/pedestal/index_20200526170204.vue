@@ -1,5 +1,26 @@
 <template>
   <div class="pedestal-container">
+      <headTitle title="pedestal"></headTitle>
+  </div>
+</template>
+
+<script>
+import headTitle from "@/components/head/index";
+export default {
+  components: {
+    headTitle
+  }
+};
+</script>
+
+<style>
+
+</style>
+
+
+
+<template>
+  <div class="pedestal-container">
      <div v-for="item in dataList" class="box">
        <img :src='item.url' style="width:60px;margin-bottom:20px"/>
        <span>{{item.title}}</span>

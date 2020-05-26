@@ -12,6 +12,9 @@
 <script>
 const { remote } = require("electron");
 export default {
+  created(){
+    console.log(this.$route.path);
+  },
   methods: {
     winControl(action) {
       const browserWindow = remote.getCurrentWindow();

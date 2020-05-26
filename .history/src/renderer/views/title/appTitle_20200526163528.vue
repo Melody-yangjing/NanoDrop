@@ -1,6 +1,6 @@
 <template>
   <div id="mytitle" style="-webkit-app-region: drag;-webkit-user-select: none;">
-    <span class="app-title">{{$route.path==='/mainContent'?'':'NanoDrop ONE'}}</span>
+    <span class="app-title">{{$router.path==='/mainContent'?'':'NanoDrop ONE'}}</span>
     <div class="min_max_close" style="-webkit-app-region: no-drag;">
       <svg-icon class="icon-btn" id="min" icon-class="min" @click.native="winControl('minimize')"></svg-icon>
       <svg-icon class="icon-btn" id="max" icon-class="max" @click.native="winControl('maximize')"></svg-icon>
@@ -12,6 +12,9 @@
 <script>
 const { remote } = require("electron");
 export default {
+  created(){
+    console.log(this.$router);
+  },
   methods: {
     winControl(action) {
       const browserWindow = remote.getCurrentWindow();

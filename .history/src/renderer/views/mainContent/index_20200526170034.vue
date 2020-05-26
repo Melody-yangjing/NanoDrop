@@ -117,9 +117,6 @@ export default {
 
 
 <style lang="scss">
-.el-tabs__header{
-  margin: 0 32px 15px;
-}
 .el-tabs__item{
   height: 60px;
   line-height: 60px;

@@ -1,8 +1,7 @@
 <template>
   <div>
-    <img src="/src/renderer/assets/logo.png" style="margin-top:20px">
     <!-- 内容 -->
-    <div class="content">
+    <div>
       <el-tabs v-model="activeName" @tab-click="handleTabsChange" >
         <el-tab-pane
           v-for="(item,index) in DataList"
@@ -117,20 +116,6 @@ export default {
 
 
 <style lang="scss">
-.el-tabs__header{
-  margin: 0 32px 15px;
-}
-.el-tabs__item{
-  height: 60px;
-  line-height: 60px;
-  padding: 0 36px;
-}
-.el-tabs__nav-wrap::after{
-  background-color:transparent;
-}
-.content{
-  padding: 20px;
-}
 .bottom {
   display: flex;
   justify-content: center;

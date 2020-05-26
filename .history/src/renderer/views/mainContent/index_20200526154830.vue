@@ -1,17 +1,22 @@
 <template>
   <div>
-    <img src="/src/renderer/assets/logo.png" style="margin-top:20px">
     <!-- 内容 -->
-    <div class="content">
-      <el-tabs v-model="activeName" @tab-click="handleTabsChange" >
-        <el-tab-pane
-          v-for="(item,index) in DataList"
-          :key="index"
-          :label="item.label"
-          :name="item.name"
-          style="height:500px"
-        >
-          <component :is="item.content"></component>
+    <div>
+      <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane label="NUCLEC ACIDS" name="NUCLEC">
+          <NUCLEC />
+        </el-tab-pane>
+        <el-tab-pane label="PROTEINS" name="PROTEINS">
+          <PROTEINS />
+        </el-tab-pane>
+        <el-tab-pane label="OD600" name="OD600">
+          <OD600 />
+        </el-tab-pane>
+        <el-tab-pane label="CUSTOM" name="CUSTOM">
+          <CUSTOM />
+        </el-tab-pane>
+        <el-tab-pane label="KINETICS" name="KINETICS">
+          <KINETICS />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -49,42 +54,22 @@ import OD600 from "@/views/od600";
 import CUSTOM from "@/views/custom";
 import KINETICS from "@/views/kinetics";
 export default {
+  components: {
+    NUCLEC,
+    PROTEINS,
+    OD600,
+    CUSTOM,
+    KINETICS
+  },
   data() {
     return {
       MainDataList,
-      activeName: "Nuclec",
-      DataList: [
-        {
-          label: "NUCLEC ACIDS",
-          name: "Nuclec",
-          content: NUCLEC
-        },
-        {
-          label: "PROTEINS",
-          name: "Proteins",
-          content: PROTEINS
-        },
-        {
-          label: "OD600",
-          name: "Od600",
-          content: OD600
-        },
-        {
-          label: "CUSTOM",
-          name: "Custom",
-          content: CUSTOM
-        },
-        {
-          label: "KINETICS",
-          name: "Kinetics",
-          content: KINETICS
-        }
-      ]
+      activeName: "NUCLEC"
     };
   },
   methods: {
-    handleTabsChange(tab, event) {
-      // console.log(tab, event);
+    handleClick(tab, event) {
+      console.log(tab, event);
     },
     bottomClick(type) {
       switch (type) {
@@ -117,20 +102,6 @@ export default {
 
 
 <style lang="scss">
-.el-tabs__header{
-  margin: 0 32px 15px;
-}
-.el-tabs__item{
-  height: 60px;
-  line-height: 60px;
-  padding: 0 36px;
-}
-.el-tabs__nav-wrap::after{
-  background-color:transparent;
-}
-.content{
-  padding: 20px;
-}
 .bottom {
   display: flex;
   justify-content: center;

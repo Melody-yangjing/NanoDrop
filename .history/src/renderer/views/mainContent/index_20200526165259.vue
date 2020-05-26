@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="/src/renderer/assets/logo.png" style="margin-top:20px">
+    <img src="/src/renderer/assets/logo.png" style="margin:10px 0">
     <!-- 内容 -->
     <div class="content">
       <el-tabs v-model="activeName" @tab-click="handleTabsChange" >
@@ -9,7 +9,7 @@
           :key="index"
           :label="item.label"
           :name="item.name"
-          style="height:500px"
+          style="height:600px"
         >
           <component :is="item.content"></component>
         </el-tab-pane>
@@ -117,17 +117,6 @@ export default {
 
 
 <style lang="scss">
-.el-tabs__header{
-  margin: 0 32px 15px;
-}
-.el-tabs__item{
-  height: 60px;
-  line-height: 60px;
-  padding: 0 36px;
-}
-.el-tabs__nav-wrap::after{
-  background-color:transparent;
-}
 .content{
   padding: 20px;
 }

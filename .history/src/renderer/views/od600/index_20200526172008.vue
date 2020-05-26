@@ -1,5 +1,11 @@
 <template>
-  <div class="pedestal-container">
+  <div class="od66-container">
+      od66-container
+  </div>
+</template>
+
+<template>
+  <div class="od66-container">
      <div v-for="item in dataList" class="box">
        <img :src='item.url' style="width:60px;margin-bottom:20px"/>
        <span>{{item.title}}</span>
@@ -26,7 +32,7 @@ export default {
 </script>
 
 <style lang='scss'>
- .pedestal-container{
+ .od66-container{
    width: 100%;
    height:100%;
    display: flex;

@@ -1,6 +1,6 @@
 <template>
-  <div class="custom-container">
-    custom
+  <div class="odd-container">
+      odd-container
   </div>
 </template>
 

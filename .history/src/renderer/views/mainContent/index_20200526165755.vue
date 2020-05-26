@@ -117,13 +117,8 @@ export default {
 
 
 <style lang="scss">
-.el-tabs__header{
-  margin: 0 32px 15px;
-}
-.el-tabs__item{
-  height: 60px;
-  line-height: 60px;
-  padding: 0 36px;
+.el-tabs__nav .el-tabs__item{
+  padding: 10px;
 }
 .el-tabs__nav-wrap::after{
   background-color:transparent;

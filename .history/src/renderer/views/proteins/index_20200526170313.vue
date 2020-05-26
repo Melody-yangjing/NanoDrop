@@ -1,5 +1,24 @@
 <template>
-  <div class="pedestal-container">
+  <div class="protenis-container">
+      protenis-container
+  </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+
+</style>
+
+
+
+
+<template>
+  <div class="protenis-container">
      <div v-for="item in dataList" class="box">
        <img :src='item.url' style="width:60px;margin-bottom:20px"/>
        <span>{{item.title}}</span>
@@ -26,7 +45,7 @@ export default {
 </script>
 
 <style lang='scss'>
- .pedestal-container{
+ .protenis-container{
    width: 100%;
    height:100%;
    display: flex;

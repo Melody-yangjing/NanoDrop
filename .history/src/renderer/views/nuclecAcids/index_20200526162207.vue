@@ -1,8 +1,8 @@
 <template>
-  <div class="pedestal-container">
+  <div class="nuc-container">
      <div v-for="item in dataList" class="box">
-       <img :src='item.url' style="width:60px;margin-bottom:20px"/>
-       <span>{{item.title}}</span>
+       <img :src='item.url' style="width:40px"/>
+       <p>{{item.title}}</p>
      </div>
   </div>
 </template>
@@ -26,17 +26,14 @@ export default {
 </script>
 
 <style lang='scss'>
- .pedestal-container{
+ .nuc-container{
    width: 100%;
-   height:100%;
    display: flex;
    flex-wrap: wrap;
-   align-items: center;
    .box{
      width: 25%;
      display: flex;
      align-items: center;
-     flex-direction: column;
    }
  }
 </style>
