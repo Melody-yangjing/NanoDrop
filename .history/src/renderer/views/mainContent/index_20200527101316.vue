@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     handleTabsChange(tab, event) {
-      localStorage.setItem('activeName',tab.name)
+      // console.log(tab, event);
     },
     bottomClick(type) {
       switch (type) {
@@ -130,8 +130,7 @@ export default {
 .el-tabs__item{
   height: 60px;
   line-height: 60px;
-  padding: 0 60px;
-  box-sizing: content-box;
+  padding: 0 36px;
 }
 .el-tabs__nav-wrap::after{
   background-color:transparent;

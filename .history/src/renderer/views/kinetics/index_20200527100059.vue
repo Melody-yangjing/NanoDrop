@@ -45,6 +45,28 @@ export default {
 };
 </script>
 
+<style lang='scss'>
+.kinetics-container {
+  width: 85%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+
+  .box {
+    width: 25%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    div {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+}
+</style>
 
 
 

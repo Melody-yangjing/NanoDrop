@@ -10,11 +10,15 @@ export default {
   },
   data() {
     return {
+
+      
+
+
       dataList: [
         {
           url: "/src/renderer/assets/Chemometric.png",
-          path:'/customMethods',
-          title: "Custom Methods"
+          path:'/chemometric',
+          title: "CustomMethods"
         },
         {
           url: "/src/renderer/assets/Chemometric.png",
@@ -23,7 +27,7 @@ export default {
         },
         {
           url: "/src/renderer/assets/Chemometric.png",
-          path:'/chemometric',
+          path:'/customMethods',
           title: "Chemometric Method"
         }
       ]

@@ -1,11 +1,11 @@
 <template>
-  <tabContent :dataList="dataList"></tabContent>
+  <tabContent :dataList='dataList'></tabContent>
 </template>
 
 <script>
-import tabContent from "@/components/tabContent";
+import tabContent from '@/components/tabContent'
 export default {
-  components: {
+  components:{
     tabContent
   },
   data() {

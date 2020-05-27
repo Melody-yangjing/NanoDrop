@@ -1,13 +1,16 @@
 <template>
-  <tabContent :dataList="dataList"></tabContent>
+  <div class="protenis-container">
+    <div v-for="item in dataList" class="box">
+      <div>
+        <img :src="item.url" style="width:60px;margin-bottom:20px" />
+        <span>{{item.title}}</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import tabContent from "@/components/tabContent";
 export default {
-  components: {
-    tabContent
-  },
   data() {
     return {
       dataList: [
@@ -45,6 +48,28 @@ export default {
 };
 </script>
 
+<style lang='scss'>
+.protenis-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+
+  .box {
+    width: 25%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    div {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+}
+</style>
 
 
 

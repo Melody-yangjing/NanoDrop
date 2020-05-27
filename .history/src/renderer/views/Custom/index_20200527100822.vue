@@ -13,17 +13,17 @@ export default {
       dataList: [
         {
           url: "/src/renderer/assets/Chemometric.png",
-          path:'/customMethods',
-          title: "Custom Methods"
+          path:'/history',
+          title: "CustomMethods"
         },
         {
           url: "/src/renderer/assets/Chemometric.png",
-          path:'/UV-Vis',
+          path:'/history',
           title: "UV-Vis"
         },
         {
           url: "/src/renderer/assets/Chemometric.png",
-          path:'/chemometric',
+          path:'/history',
           title: "Chemometric Method"
         }
       ]

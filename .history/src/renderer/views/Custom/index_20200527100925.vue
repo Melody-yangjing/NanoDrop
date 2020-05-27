@@ -10,20 +10,24 @@ export default {
   },
   data() {
     return {
+
+      UV-Vis
+
+
       dataList: [
         {
           url: "/src/renderer/assets/Chemometric.png",
-          path:'/customMethods',
-          title: "Custom Methods"
+          path:'/chemometric',
+          title: "CustomMethods"
         },
         {
           url: "/src/renderer/assets/Chemometric.png",
-          path:'/UV-Vis',
+          path:'/history',
           title: "UV-Vis"
         },
         {
           url: "/src/renderer/assets/Chemometric.png",
-          path:'/chemometric',
+          path:'/customMethods',
           title: "Chemometric Method"
         }
       ]

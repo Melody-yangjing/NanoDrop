@@ -131,7 +131,6 @@ export default {
   height: 60px;
   line-height: 60px;
   padding: 0 60px;
-  box-sizing: content-box;
 }
 .el-tabs__nav-wrap::after{
   background-color:transparent;
