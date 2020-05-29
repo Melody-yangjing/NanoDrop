@@ -128,6 +128,7 @@ export default {
   margin: 0 32px 15px;
 }
 .el-tabs__item{
+  font-size: 16px;
   height: 60px;
   line-height: 60px;
   padding: 0 60px;
@@ -142,15 +143,17 @@ export default {
 .bottom {
   display: flex;
   justify-content: center;
-
-  span {
-    margin: 20px;
+  color: #666;
+  .hover-style {
+    margin: 0 60px;
+    span{
+      margin: 0 20px;
+    }
   }
 }
 
 .hover-style {
   cursor: pointer;
-
   &:hover {
     color: rgb(64, 144, 250);
   }
