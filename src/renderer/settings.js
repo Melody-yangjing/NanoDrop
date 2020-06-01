@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'NanoDrop',
+  title: 'NanoDrop One',
 
   /**
    * @type {boolean} true | false
