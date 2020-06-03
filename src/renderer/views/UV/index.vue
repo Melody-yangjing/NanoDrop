@@ -25,58 +25,24 @@
       </div>
     </div>
     <div class="input-box">
-      <el-input
-        v-model="dataZoomStart"
-        class="inp Start"
-        placeholder="请输入：λ Start"
-        @change="handleChangeStart"
-        style="width: 130px;"
-      ></el-input>
-      <el-input
-        v-model="dataZoomEnd"
-        class="inp End"
-        placeholder="请输入：λ End"
-        @change="handleChangeEnd"
-        style="width: 130px;"
-      ></el-input>
-      <el-input
-        v-model="Abs"
-        class="inp Abs"
-        placeholder="请输入：λ Abs"
-        @change="handleChangeAbs"
-        style="width: 130px;"
-      ></el-input>
+      <el-input v-model="dataZoomStart" class="inp Start" placeholder="请输入：λ Start" @change="handleChangeStart"
+        style="width: 130px;"></el-input>
+      <el-input v-model="dataZoomEnd" class="inp End" placeholder="请输入：λ End" @change="handleChangeEnd"
+        style="width: 130px;"></el-input>
+      <el-input v-model="Abs" class="inp Abs" placeholder="请输入：λ Abs" @change="handleChangeAbs" style="width: 130px;">
+      </el-input>
+      <el-button @click='addSeries' type='primary' size='mini'>添加series</el-button>
     </div>
 
-    <info-line
-      :id="'timeLine'"
-      :loading="timeLoading"
-      :optRenderer="'canvas'"
-      :option="timeLineOption"
-      style="height: 400px"
-      @markLineChange="markLineChange"
-      :position="position"
-      :draggable = 'draggable'
-    />
+    <info-line :id="'timeLine'" :loading="timeLoading" :optRenderer="'canvas'" :option="timeLineOption"
+      style="height: 400px" @markLineChange="markLineChange" :position="position" :draggable='draggable' />
     <div class="switch-box">
-      <el-switch
-        v-model="Pathlength"
-        active-color="#0080ff"
-        active-text="Automated Pathlength"
-        inactive-color="#ccc"
-      ></el-switch>
-      <el-switch
-        v-model="Wavelength"
-        active-color="#0080ff"
-        active-text="Analytical Wavelength(nm) "
-        inactive-color="#ccc"
-      ></el-switch>
-      <el-switch
-        v-model="Correction"
-        active-color="#0080ff"
-        active-text="Baseline Correction(nm) "
-        inactive-color="#ccc"
-      ></el-switch>
+      <el-switch v-model="Pathlength" active-color="#0080ff" active-text="Automated Pathlength" inactive-color="#ccc">
+      </el-switch>
+      <el-switch v-model="Wavelength" active-color="#0080ff" active-text="Analytical Wavelength(nm) "
+        inactive-color="#ccc"></el-switch>
+      <el-switch v-model="Correction" active-color="#0080ff" active-text="Baseline Correction(nm) "
+        inactive-color="#ccc"></el-switch>
     </div>
 
     <el-table :data="tableData" style="width: 100%">
@@ -106,100 +72,117 @@
 
 
 <script>
-import infoLine from "@/views/echarts/line.vue";
-import lineList from "../../data/lindData.json";
-
-export default {
-  name: "dataInfo",
-  components: {
-    infoLine
-  },
-  data() {
-    return {
-      draggable:true,
-      dataZoomStart: "",
-      dataZoomEnd: "",
-      Abs: null,
-      percentage: 2,
-      dialogVisible1: true,
-      dialogVisible: false,
-      timeLineOption: {},
-      timeLoading: false,
-      lineList,
-      Pathlength: "",
-      Wavelength: "",
-      Correction: "",
-      position: 110,
-      tableData: [
-        {
-          Date: "2018-09-09",
-          SampleName: "Blank",
-          Location: "Pedestal",
-          "Pathlength Used": "1mm",
-          Baseline: "",
-          Width: "0.2",
-          Length: "0.1",
-          Height: "0.3"
-        }
-      ]
-    };
-  },
-  mounted() {
-    this.setLineOption();
-  },
-  methods: {
-    handleChangeEnd(v) {
-      this.dataZoomEnd = String(v);
-      this.setLineOption();
+  import infoLine from "@/views/echarts/line.vue";
+  import lineList from "../../data/lindData.json";
+  import lineData2 from '../../data/lineData2';
+  export default {
+    name: "dataInfo",
+    components: {
+      infoLine
     },
-    handleChangeAbs(v) {
-      this.Abs = Number(v);
-      this.setLineOption();
-    },
-    handleChangeStart(v) {
-      this.dataZoomStart = String(v);
-      this.setLineOption();
-    },
-    handleClick() {
-      this.dialogVisible = true;
-      const timeId = setInterval(() => {
-        this.percentage += 2;
-        if (this.percentage === 100) {
-          clearInterval(timeId);
-          this.dialogVisible = false;
-        }
-      }, 100);
-      this.percentage = 0;
-    },
-    setLineOption(p) {
-      this.timeLineOption = {
-        xAxis: {
-          name: "Wavelength (nm)",
-          nameLocation: "middle",
-          nameGap: 30,
-          type: "category",
-          data: this.lineList.map(item => {
-            return item[0];
-          })
-        },
-        yAxis: {
-          id: "2",
-          name: "10mm Absorbance",
-          type: "value",
-          position: "left",
-          nameLocation: "middle",
-          nameGap: 40,
-          nameRotate: 90,
-          splitLine: false
-        },
-        legend: {
-          data: ["example"],
-          left: "left",
-          top: 0
-        },
-        series: [
+    data() {
+      return {
+        draggable: true,
+        dataZoomStart: "",
+        dataZoomEnd: "",
+        Abs: null,
+        percentage: 2,
+        dialogVisible1: true,
+        dialogVisible: false,
+        timeLineOption: {},
+        timeLoading: false,
+        lineList,
+        lengendData:['line1'],
+        lineData2,
+        Pathlength: "",
+        Wavelength: "",
+        Correction: "",
+        position: 110,
+        tableData: [
           {
-            name: "example",
+            Date: "2018-09-09",
+            SampleName: "Blank",
+            Location: "Pedestal",
+            "Pathlength Used": "1mm",
+            Baseline: "",
+            Width: "0.2",
+            Length: "0.1",
+            Height: "0.3"
+          }
+        ],
+        series: [
+        ]
+      };
+    },
+    mounted() {
+      this.setLineOption();
+    },
+    methods: {
+      addSeries() {
+        this.series.push({
+          name: "line2",
+          data: this.lineData2.map(item => {
+            return item[1];
+          }),
+          type: "line",
+          smooth: true,
+          lineStyle: {
+            color: "red"
+          },
+          markLine: {
+            data: [
+              {
+                yAxis: this.Abs || 110,
+                lineStyle: {
+                  color: "deeppink"
+                }
+              },
+              {
+                xAxis: this.dataZoomStart || "2000-08-13",
+                lineStyle: {
+                  color: "green"
+                }
+              },
+              {
+                xAxis: this.dataZoomEnd || "2000-08-29",
+                lineStyle: {
+                  color: "blue"
+                }
+              }
+            ]
+          }
+        })
+        this.timeLineOption.lengend = { data: this.lengendData.push('line2') }
+
+      },
+      handleChangeEnd(v) {
+        this.dataZoomEnd = String(v);
+        this.setLineOption();
+      },
+      handleChangeAbs(v) {
+        this.Abs = Number(v);
+        this.setLineOption();
+      },
+      handleChangeStart(v) {
+        this.dataZoomStart = String(v);
+        this.setLineOption();
+      },
+      handleClick() {
+        this.dialogVisible = true;
+        const timeId = setInterval(() => {
+          this.percentage += 2;
+          if (this.percentage === 100) {
+            clearInterval(timeId);
+            this.dialogVisible = false;
+          }
+        }, 100);
+        this.percentage = 0;
+      },
+      setLineOption(p) {
+        const _this = this
+        this.series.push(
+          {
+            name: "line1",
             data: this.lineList.map(item => {
               return item[1];
             }),
@@ -230,185 +213,211 @@ export default {
                 }
               ]
             }
-          }
-        ],
-        tooltip: {
-          trigger: "axis",
-          show: true
-        },
-        toolbox: {
-          show: true,
-          feature: {
-            mark: { show: true },
-            dataView: { show: true, readOnly: true },
-            magicType: { show: true, type: ["line", "bar"] },
-            restore: { show: true },
-            saveAsImage: { show: true },
-            dataZoom: { show: true }
-          }
-        },
-        grid: {
-          top: "5%",
-          bottom: "90px",
-          width: "auto" //图例宽度
-        },
-        dataZoom: [
-          {
-            type: "slider",
-            start: 10,
-            end: 20
-          }
-        ]
-      };
-    },
-    markLineChange(param) {
-      this.Abs = param;
-    }
-  },
-  watch: {
-    Abs(a, b) {
-      console.log(a, b);
-      const num = Number(this.Abs);
-
-      if (num < 0) {
-        this.draggable = false;
-        this.Abs = this.position = 0;
-      } else if (num > 150) {
-        console.log('大');
-        this.draggable = false;
-        this.Abs = this.position = 150;
-      } else {
-        this.draggable = true
-        this.position = num;
+          })
+        this.timeLineOption = {
+          xAxis: {
+            name: "Wavelength (nm)",
+            nameLocation: "middle",
+            nameGap: 30,
+            type: "category",
+            data: this.lineList.map(item => {
+              return item[0];
+            })
+          },
+          yAxis: {
+            id: "2",
+            name: "10mm Absorbance",
+            type: "value",
+            position: "left",
+            nameLocation: "middle",
+            nameGap: 40,
+            nameRotate: 90,
+            splitLine: false
+          },
+          legend: {
+            data: ["example"],
+            left: "left",
+            top: 0
+          },
+          series: _this.series,
+          tooltip: {
+            trigger: "axis",
+            show: true
+          },
+          toolbox: {
+            show: true,
+            feature: {
+              mark: { show: true },
+              dataView: { show: true, readOnly: true },
+              magicType: { show: true, type: ["line", "bar"] },
+              restore: { show: true },
+              saveAsImage: { show: true },
+              dataZoom: { show: true }
+            }
+          },
+          grid: {
+            top: "5%",
+            bottom: "90px",
+            width: "auto" //图例宽度
+          },
+          dataZoom: [
+            {
+              type: "slider",
+              start: 10,
+              end: 20
+            }
+          ]
+        };
+        this.timeLineOption.legend = { data: this.lengendData }
+      },
+      markLineChange(param) {
+        this.Abs = param;
       }
-    }
-  }
-};
-</script>
+    },
+    watch: {
+      Abs(a, b) {
+        console.log(a, b);
+        const num = Number(this.Abs);
 
-<style lang="scss">
-.el-progress {
-  line-height: 4;
-}
-
-.el-dialog {
-  display: flex;
-  flex-direction: column;
-  margin: 0 !important;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 10px;
-}
-
-.el-dialog .el-dialog__body {
-  flex: 1;
-  overflow: auto;
-}
-
-.uv-container {
-  overflow: auto;
-
-  .fr {
-    height: 30px;
-    line-height: 30px;
-    text-align: right;
-
-    .icon-btn {
-      margin-right: 20px;
-    }
-  }
-
-  .left-icon {
-    width: 2rem !important;
-    height: 2rem !important;
-    cursor: pointer;
-
-    &:hover {
-      color: #0080ff;
-    }
-  }
-
-  .header-container {
-    border-bottom: 1px solid #ccc;
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-between;
-
-    .left {
-      display: flex;
-      align-items: center;
-
-      .center {
-        margin-left: 10px;
-        display: flex;
-        flex-direction: column;
-
-        .title {
-          color: #0080ff;
-          font-size: 20px;
-          font-weight: 700;
-          margin-bottom: 10px;
+        if (num < 0) {
+          this.draggable = false;
+          this.Abs = this.position = 0;
+        } else if (num > 150) {
+          console.log('大');
+          this.draggable = false;
+          this.Abs = this.position = 150;
+        } else {
+          this.draggable = true
+          this.position = num;
         }
       }
     }
+  };
+</script>
 
-    .right {
-      display: flex;
-      align-items: center;
+<style lang="scss">
+  .el-progress {
+    line-height: 4;
+  }
 
-      .pic {
-        margin-right: 40px;
-      }
+  .el-dialog {
+    display: flex;
+    flex-direction: column;
+    margin: 0 !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+  }
 
-      .more-icon {
+  .el-dialog .el-dialog__body {
+    flex: 1;
+    overflow: auto;
+  }
+
+  .uv-container {
+    overflow: auto;
+
+    .fr {
+      height: 30px;
+      line-height: 30px;
+      text-align: right;
+
+      .icon-btn {
         margin-right: 20px;
       }
     }
 
-    .pic-icon {
+    .left-icon {
+      width: 2rem !important;
+      height: 2rem !important;
       cursor: pointer;
-      height: 40px;
-      margin: 0 10px;
+
+      &:hover {
+        color: #0080ff;
+      }
+    }
+
+    .header-container {
+      border-bottom: 1px solid #ccc;
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+
+      .left {
+        display: flex;
+        align-items: center;
+
+        .center {
+          margin-left: 10px;
+          display: flex;
+          flex-direction: column;
+
+          .title {
+            color: #0080ff;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+          }
+        }
+      }
+
+      .right {
+        display: flex;
+        align-items: center;
+
+        .pic {
+          margin-right: 40px;
+        }
+
+        .more-icon {
+          margin-right: 20px;
+        }
+      }
+
+      .pic-icon {
+        cursor: pointer;
+        height: 40px;
+        margin: 0 10px;
+      }
+    }
+
+    .switch-box {
+      height: 60px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .input-box {
+      margin: 0 auto;
+      width: 420px;
+      display: flex;
+      justify-content: space-around;
+
+      .inp {
+        margin: 10px 0;
+      }
     }
   }
 
-  .switch-box {
-    height: 60px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-  }
-
-  .input-box {
-    margin: 0 auto;
-    width: 420px;
-    display: flex;
-    justify-content: space-around;
-
-    .inp {
-      margin: 10px 0;
+  .Start {
+    .el-input__inner {
+      border: 1px green solid;
     }
   }
-}
 
-.Start {
-  .el-input__inner {
-    border: 1px green solid;
+  .End {
+    .el-input__inner {
+      border: 1px solid blue;
+    }
   }
-}
 
-.End {
-  .el-input__inner {
-    border: 1px solid blue;
+  .Abs {
+    .el-input__inner {
+      border: 1px deeppink solid;
+    }
   }
-}
-
-.Abs {
-  .el-input__inner {
-    border: 1px deeppink solid;
-  }
-}
 </style>

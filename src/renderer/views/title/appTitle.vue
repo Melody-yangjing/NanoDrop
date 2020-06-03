@@ -50,7 +50,7 @@ export default {
   width: 100%;
   height: 40px;
   justify-content: space-between;
-  background-color:#ececec;
+  background-color:#fff;
   -webkit-app-region: drag;
   .app-title {
     margin-left: 5px;

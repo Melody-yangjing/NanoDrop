@@ -122,44 +122,6 @@ export default {
 
       this.$chartResize([this.line]); //调用前文封装的chartResize函数，传入了一个长度为3的数组；
     }
-    /**
-     * 设置折线图点击事件
-     */
-    if (this.enabledClick) {
-      this.line.getZr().on("click", params => {
-        let pointInPixel = [params.offsetX, params.offsetY];
-        if (this.line.containPixel("grid", pointInPixel)) {
-          let pointInGrid = this.line.convertFromPixel(
-            { seriesIndex: 0 },
-            pointInPixel
-          );
-          let xIndex = pointInGrid[[0]];
-          let op = this.line.getOption();
-          let xValue = op.xAxis[0].data[xIndex];
-          this.$emit("onDetail", xValue, op.series[1].data[xIndex].groupTime);
-        }
-      });
-    }
-    /**
-     * 设置图例最少一个选中
-     */
-    this.line.on("legendselectchanged", params => {
-      let legendObj = params.selected;
-      let selectedNum = 0;
-      for (const key in legendObj) {
-        if (legendObj.hasOwnProperty(key)) {
-          const element = legendObj[key];
-          if (element) {
-            selectedNum += 1;
-          }
-        }
-      }
-      if (selectedNum === 0) {
-        legendObj[params.name] = true;
-        this.option.legend.selected = legendObj;
-        this.line.setOption(this.option);
-      }
-    });
   },
   beforeDestroy() {
     if (
