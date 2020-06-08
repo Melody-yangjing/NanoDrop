@@ -1,22 +1,22 @@
 <template>
-  <div>
-    <img src="/src/renderer/assets/logo.png" style="margin-top:20px" />
+  <div class="mainContainer">
+    <img src="/src/renderer/assets/logo.png"  />
     <!-- 内容 -->
     <div class="content">
-      <el-tabs v-model="activeName" @tab-click="handleTabsChange">
+      <el-tabs v-model="activeName" @tab-click="handleTabsChange" style="height: 100%;">
         <el-tab-pane
           v-for="(item,index) in DataList"
           :key="index"
           :label="item.label"
           :name="item.name"
-          style="height:500px"
+          style="height: 100%;"
         >
           <component :is="item.content"></component>
         </el-tab-pane>
       </el-tabs>
     </div>
     <!-- 底部 -->
-    <el-row type="flex" justify="center">
+    <el-row type="flex" >
       <el-col :span="4" class="hover-style">
         <span @click="bottomClick('history')">
           <svg-icon icon-class="history"></svg-icon>
@@ -134,9 +134,7 @@ export default {
 
 
 <style lang="scss">
-.el-tabs__header {
-  margin: 0 32px 15px;
-}
+
 .el-tabs__item {
   font-size: 16px;
   height: 60px;
@@ -144,11 +142,20 @@ export default {
   padding: 0 60px;
   box-sizing: content-box;
 }
+
+.el-tabs__content{
+  height: 90%;
+}
 .el-tabs__nav-wrap::after {
   background-color: transparent;
 }
+.mainContainer{
+  height: 100%;
+  padding: 30px;
+}
 .content {
-  padding: 20px;
+  padding: 25px 70px;
+  height: 80%;
 }
 
 .hover-style {

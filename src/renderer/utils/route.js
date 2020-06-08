@@ -19,7 +19,9 @@ export function traverseRoutes(menus) {
     if (menu.children && menu.children.length) {
       menu.children = traverseRoutes(menu.children)
     }
+    console.log(menu);
     return menu
   })
+  console.log(rotus);
   return routes
 }

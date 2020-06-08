@@ -43,14 +43,14 @@ export default {
 <style lang='scss'>
 #mytitle {
   position: fixed;
-  top: 0;
+  top:2px;
   z-index: 99;
   display: flex;
   align-items: center;
   width: 100%;
-  height: 40px;
+  height: 30px;
   justify-content: space-between;
-  background-color:#fff;
+  /* background-color:#fff; */
   -webkit-app-region: drag;
   .app-title {
     margin-left: 5px;

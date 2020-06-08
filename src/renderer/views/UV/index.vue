@@ -1,29 +1,6 @@
 <template>
   <div class="uv-container">
-    <div class="fr">
-      <svg-icon icon-class="question" class="icon-btn" />
-      <svg-icon icon-class="tick" class="icon-btn" />
-    </div>
-    <div class="header-container">
-      <div class="left">
-        <svg-icon icon-class="left" class="left-icon" @click.native="$router.back()" />
-        <div class="center">
-          <span class="title">UV-Vis Mesurement</span>
-          <div>
-            <svg-icon icon-class="End-Experiment" class="icon-btn" />
-            <span style="width:100px;padding-left:10px;border-left:1px solid #bbb;">sample</span>
-          </div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="pic">
-          <img src="@/assets/End-Experiment-1.png" class="pic-icon" @click="handleClick" />
-          <img src="@/assets/End-Experiment-2.png" class="pic-icon" @click="handleClick" />
-          <img src="@/assets/End-Experiment-3.png" class="pic-icon" @click="handleClick" />
-        </div>
-        <svg-icon icon-class="more" class="more-icon" />
-      </div>
-    </div>
+    <mainTitle title='UV-Vis'></mainTitle>
     <div class="input-box">
       <el-input v-model="dataZoomStart" class="inp Start" placeholder="请输入：λ Start" @change="handleChangeStart"
         style="width: 130px;"></el-input>
@@ -56,15 +33,10 @@
       <el-table-column prop="Height" label="Height" width="180"></el-table-column>
     </el-table>
 
-    <el-dialog title="Blanking" :visible.sync="dialogVisible" width="30%" center>
-      <el-progress :show-text="false" :stroke-width="20" :percentage="percentage"></el-progress>
-    </el-dialog>
 
-    <el-dialog title="提示" :visible.sync="dialogVisible1" width="30%" center>
-      <span>这是一段信息</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
-      </span>
+
+    <el-dialog title="Instrument Self-Test" :visible.sync="dialogVisible1" width="30%" center>
+      <p style="text-align: center;">Initializing,please DO NOT lift the arm</p>
     </el-dialog>
   </div>
 </template>
@@ -75,10 +47,12 @@
   import infoLine from "@/views/echarts/line.vue";
   import lineList from "../../data/lindData.json";
   import lineData2 from '../../data/lineData2';
+  import mainTitle from '@/components/mainTitle'
   export default {
     name: "dataInfo",
     components: {
-      infoLine
+      infoLine,
+      mainTitle
     },
     data() {
       return {
@@ -86,13 +60,11 @@
         dataZoomStart: "",
         dataZoomEnd: "",
         Abs: null,
-        percentage: 2,
         dialogVisible1: true,
-        dialogVisible: false,
         timeLineOption: {},
         timeLoading: false,
         lineList,
-        lengendData:['line1'],
+        lengendData: ['line1'],
         lineData2,
         Pathlength: "",
         Wavelength: "",
@@ -167,17 +139,7 @@
         this.dataZoomStart = String(v);
         this.setLineOption();
       },
-      handleClick() {
-        this.dialogVisible = true;
-        const timeId = setInterval(() => {
-          this.percentage += 2;
-          if (this.percentage === 100) {
-            clearInterval(timeId);
-            this.dialogVisible = false;
-          }
-        }, 100);
-        this.percentage = 0;
-      },
+
       setLineOption(p) {
         const _this = this
         this.series.push(
@@ -318,70 +280,6 @@
 
   .uv-container {
     overflow: auto;
-
-    .fr {
-      height: 30px;
-      line-height: 30px;
-      text-align: right;
-
-      .icon-btn {
-        margin-right: 20px;
-      }
-    }
-
-    .left-icon {
-      width: 2rem !important;
-      height: 2rem !important;
-      cursor: pointer;
-
-      &:hover {
-        color: #0080ff;
-      }
-    }
-
-    .header-container {
-      border-bottom: 1px solid #ccc;
-      padding: 20px 0;
-      display: flex;
-      justify-content: space-between;
-
-      .left {
-        display: flex;
-        align-items: center;
-
-        .center {
-          margin-left: 10px;
-          display: flex;
-          flex-direction: column;
-
-          .title {
-            color: #0080ff;
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 10px;
-          }
-        }
-      }
-
-      .right {
-        display: flex;
-        align-items: center;
-
-        .pic {
-          margin-right: 40px;
-        }
-
-        .more-icon {
-          margin-right: 20px;
-        }
-      }
-
-      .pic-icon {
-        cursor: pointer;
-        height: 40px;
-        margin: 0 10px;
-      }
-    }
 
     .switch-box {
       height: 60px;

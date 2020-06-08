@@ -19,7 +19,7 @@ import store from './store'
 import i18n from './lang' // Internationalization
 
 import '@/icons' // icon
-import '@/permission' // permission control
+// import '@/permission' // permission control
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
