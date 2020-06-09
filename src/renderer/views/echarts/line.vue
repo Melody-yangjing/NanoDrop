@@ -2,14 +2,30 @@
   <div class="module-container" :style="{width:width}">
     <div :id="lineId" class="module-body bg" :style="{height:height,width:width}" @contextmenu="contextmenu"
       @click='showModel=false'></div>
+
+    <!-- 右键菜单 -->
     <div v-if="showModel" :style="{left: left, top: top}" class="model">
-      <span  @click='handleClick' class="parent"><svg-icon icon-class="checked" class="icon" v-show='showMode' /><span style="margin-left: 18px;">Overlay Mode</span></span>
-      <span  @click='handleClick' class="parent"><svg-icon icon-class="checked" class="icon" v-show='showMode' /><span style="margin-left: 18px;">Show CrossHairs</span></span>
-      <span  @click='handleClick' class="parent"><svg-icon icon-class="checked" class="icon" v-show='showMode' /><span style="margin-left: 18px;">Show Legend</span></span>
-      <span  @click='handleClick' class="parent"><svg-icon icon-class="checked" class="icon" v-show='showMode' /><span style="margin-left: 18px;">Find Peaks</span></span>
-      <span  @click='handleClick' class="parent"><svg-icon icon-class="checked" class="icon" v-show='showMode' /><span style="margin-left: 18px;">Autoscale</span></span>
-      <span  @click='handleClick' class="parent"><svg-icon icon-class="checked" class="icon" v-show='showMode' /><span style="margin-left: 18px;">Format X-axis</span></span>
-      <span  @click='handleClick' class="parent"><svg-icon icon-class="checked" class="icon" v-show='showMode' /><span style="margin-left: 18px;">Format Y-axis</span></span>
+      <span @click='handleClick("mode")' class="parent">
+        <svg-icon icon-class="checked" class="icon" v-show='showMode' /><span style="margin-left: 18px;">Overlay
+          Mode</span></span>
+      <span @click='handleClick("mode")' class="parent">
+        <svg-icon icon-class="checked" class="icon" v-show='showMode' /><span style="margin-left: 18px;">Show
+          CrossHairs</span></span>
+      <span @click='handleClick("lengend")' class="parent">
+        <svg-icon icon-class="checked" class="icon" v-show='showlengend' /><span style="margin-left: 18px;">Show
+          Legend</span></span>
+      <span @click='handleClick("mode")' class="parent">
+        <svg-icon icon-class="checked" class="icon" v-show='showMode' /><span style="margin-left: 18px;">Find
+          Peaks</span></span>
+      <span @click='handleClick("mode")' class="parent">
+        <svg-icon icon-class="checked" class="icon" v-show='showMode' /><span
+          style="margin-left: 18px;">Autoscale</span></span>
+      <span @click='handleClick("mode")' class="parent">
+        <svg-icon icon-class="checked" class="icon" v-show='showMode' /><span style="margin-left: 18px;">Format
+          X-axis</span></span>
+      <span @click='handleClick("mode")' class="parent">
+        <svg-icon icon-class="checked" class="icon" v-show='showMode' /><span style="margin-left: 18px;">Format
+          Y-axis</span></span>
     </div>
   </div>
 </template>
@@ -84,8 +100,9 @@
     },
     data() {
       return {
-        showMode:false,
+        showMode: false,
         showModel: false,
+        showlengend: false,
         line: null,
         empty: false,
         left: 0,
@@ -147,8 +164,16 @@
       }
     },
     methods: {
-      handleClick(){
-        this.showMode = !this.showMode
+      handleClick(type) {
+        switch (type) {
+          case 'lengend':
+            this.showlengend = !this.showlengend;
+            this.$emit('showLengend',this.showlengend)
+            break;
+          default:
+            this.showMode = !this.showMode
+            break;
+        }
       },
       // 右击事件
       contextmenu(e) {
@@ -218,14 +243,16 @@
   };
 </script>
 <style lang="scss">
-  .parent{
+  .parent {
     position: relative;
-    .icon{
+
+    .icon {
       position: absolute;
-      top:50%;
-      transform: translate3d(0,-50%,0);
+      top: 50%;
+      transform: translate3d(0, -50%, 0);
     }
   }
+
   .model {
     position: absolute;
     background-color: #ffffff;

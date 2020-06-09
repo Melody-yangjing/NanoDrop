@@ -8,11 +8,11 @@
         style="width: 130px;"></el-input>
       <el-input v-model="Abs" class="inp Abs" placeholder="请输入：λ Abs" @change="handleChangeAbs" style="width: 130px;">
       </el-input>
-      <el-button @click='addSeries' type='primary' size='mini'>添加series</el-button>
     </div>
 
     <info-line :id="'timeLine'" :loading="timeLoading" :optRenderer="'canvas'" :option="timeLineOption"
-      style="height: 400px" @markLineChange="markLineChange" :position="position" :draggable='draggable' />
+      style="height: 400px" @markLineChange="markLineChange" @showLengend='showLengend' :position="position"
+      :draggable='draggable' />
     <div class="switch-box">
       <el-switch v-model="Pathlength" active-color="#0080ff" active-text="Automated Pathlength" inactive-color="#ccc">
       </el-switch>
@@ -28,9 +28,6 @@
       <el-table-column prop="Location" label="Location" width="180"></el-table-column>
       <el-table-column prop="Pathlength Used" label="Pathlength Used" width="180"></el-table-column>
       <el-table-column prop="Baseline" label="Baseline" width="180"></el-table-column>
-      <el-table-column prop="Width" label="Width" width="180"></el-table-column>
-      <el-table-column prop="Length" label="Length" width="180"></el-table-column>
-      <el-table-column prop="Height" label="Height" width="180"></el-table-column>
     </el-table>
 
 
@@ -57,8 +54,9 @@
     data() {
       return {
         draggable: true,
-        dataZoomStart: "",
-        dataZoomEnd: "",
+        lengendFlag: false,
+        dataZoomStart: null,
+        dataZoomEnd: null,
         Abs: null,
         dialogVisible1: true,
         timeLineOption: {},
@@ -82,100 +80,28 @@
             Height: "0.3"
           }
         ],
-        series: [
-        ]
+
       };
     },
     mounted() {
       this.setLineOption();
     },
     methods: {
-      addSeries() {
-        this.series.push({
-          name: "line2",
-          data: this.lineData2.map(item => {
-            return item[1];
-          }),
-          type: "line",
-          smooth: true,
-          lineStyle: {
-            color: "red"
-          },
-          markLine: {
-            data: [
-              {
-                yAxis: this.Abs || 110,
-                lineStyle: {
-                  color: "deeppink"
-                }
-              },
-              {
-                xAxis: this.dataZoomStart || "2000-08-13",
-                lineStyle: {
-                  color: "green"
-                }
-              },
-              {
-                xAxis: this.dataZoomEnd || "2000-08-29",
-                lineStyle: {
-                  color: "blue"
-                }
-              }
-            ]
-          }
-        })
-        this.timeLineOption.lengend = { data: this.lengendData.push('line2') }
-
-      },
       handleChangeEnd(v) {
-        this.dataZoomEnd = String(v);
+        this.dataZoomEnd = v;
         this.setLineOption();
       },
       handleChangeAbs(v) {
-        this.Abs = Number(v);
+        this.Abs = v;
         this.setLineOption();
       },
       handleChangeStart(v) {
-        this.dataZoomStart = String(v);
+        this.dataZoomStart = v;
         this.setLineOption();
       },
 
       setLineOption(p) {
         const _this = this
-        this.series.push(
-          {
-            name: "line1",
-            data: this.lineList.map(item => {
-              return item[1];
-            }),
-            type: "line",
-            smooth: true,
-            lineStyle: {
-              color: "#0080ff"
-            },
-            markLine: {
-              data: [
-                {
-                  yAxis: this.Abs || 110,
-                  lineStyle: {
-                    color: "deeppink"
-                  }
-                },
-                {
-                  xAxis: this.dataZoomStart || "2000-08-13",
-                  lineStyle: {
-                    color: "green"
-                  }
-                },
-                {
-                  xAxis: this.dataZoomEnd || "2000-08-29",
-                  lineStyle: {
-                    color: "blue"
-                  }
-                }
-              ]
-            }
-          })
         this.timeLineOption = {
           xAxis: {
             name: "Wavelength (nm)",
@@ -194,28 +120,52 @@
             nameLocation: "middle",
             nameGap: 40,
             nameRotate: 90,
-            splitLine: false
+            splitLine: false,
           },
           legend: {
-            data: ["example"],
+            show: _this.lengendFlag,
+            data: ["line1"],
             left: "left",
             top: 0
           },
-          series: _this.series,
+          series: [
+            {
+              name: "line1",
+              data: this.lineList.map(item => {
+                return item[1];
+              }),
+              type: "line",
+              smooth: true,
+              lineStyle: {
+                color: "#0080ff"
+              },
+              markLine: {
+                data: [
+                  {
+                    yAxis: _this.Abs || 110,
+                    lineStyle: {
+                      color: "deeppink"
+                    }
+                  },
+                  {
+                    xAxis: _this.dataZoomStart || 33,
+                    lineStyle: {
+                      color: "green"
+                    }
+                  },
+                  {
+                    xAxis: _this.dataZoomEnd || 40,
+                    lineStyle: {
+                      color: "blue"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
           tooltip: {
             trigger: "axis",
             show: true
-          },
-          toolbox: {
-            show: true,
-            feature: {
-              mark: { show: true },
-              dataView: { show: true, readOnly: true },
-              magicType: { show: true, type: ["line", "bar"] },
-              restore: { show: true },
-              saveAsImage: { show: true },
-              dataZoom: { show: true }
-            }
           },
           grid: {
             top: "5%",
@@ -224,33 +174,43 @@
           },
           dataZoom: [
             {
+              show: true,
               type: "slider",
-              start: 10,
-              end: 20
-            }
+              start: 0 || _this.dataZoomStart,
+              end: _this.dataZoomEnd
+            },
+            {
+              type: 'slider',
+              show: true,
+              yAxisIndex: [0],
+              left: '93%',
+              start: 0,
+              end: 100
+            },
           ]
         };
-        this.timeLineOption.legend = { data: this.lengendData }
       },
       markLineChange(param) {
         this.Abs = param;
+      },
+      showLengend(param) {
+        if (param) {
+          this.lengendFlag = true
+          this.setLineOption()
+        }
       }
     },
     watch: {
       Abs(a, b) {
-        console.log(a, b);
-        const num = Number(this.Abs);
-
-        if (num < 0) {
+        if (this.Abs < 0) {
           this.draggable = false;
           this.Abs = this.position = 0;
-        } else if (num > 150) {
-          console.log('大');
+        } else if (this.Abs > 150) {
           this.draggable = false;
           this.Abs = this.position = 150;
         } else {
           this.draggable = true
-          this.position = num;
+          this.position = this.Abs;
         }
       }
     }

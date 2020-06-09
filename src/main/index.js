@@ -23,7 +23,7 @@ function createWindow() {
     height: 1100,
     useContentSize: true,
     width: 1200,
-    // frame: false,
+    frame: false,
     titleBarStyle: 'hidden' 
   })
 

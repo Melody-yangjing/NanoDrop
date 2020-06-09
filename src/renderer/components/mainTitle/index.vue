@@ -21,10 +21,24 @@
           <img src="@/assets/End-Experiment-2.png" class="pic-icon" @click="handleClick" />
           <img src="@/assets/End-Experiment-3.png" class="pic-icon" @click="handleClick" />
         </div>
-        <svg-icon icon-class="more" class="more-icon" />
+        <el-popover
+          ref="popover"
+          trigger="click"
+        >
+          <span class="pop-item"><svg-icon icon-class="checked" class="icon" /><span>Export</span></span>
+          <span class="pop-item"><svg-icon icon-class="checked" class="icon" /><span>Print</span></span>
+          <span class="pop-item"><svg-icon icon-class="checked" class="icon" /><span>Auto naming</span></span>
+        </el-popover>
+        <svg-icon v-popover:popover icon-class="more" class="more-icon" />
       </div>
     </div>
-    <el-dialog title="Blanking" :visible.sync="dialogVisible" width="30%" center @close='closeDailog'>
+    <el-dialog
+      title="Blanking"
+      :visible.sync="dialogVisible"
+      width="30%"
+      center
+      @close="closeDailog"
+    >
       <el-progress :show-text="false" :stroke-width="20" :percentage="percentage"></el-progress>
     </el-dialog>
   </div>
@@ -58,8 +72,8 @@ export default {
       }, 100);
       this.percentage = 0;
     },
-    closeDailog(){
-      this.percentage = 0
+    closeDailog() {
+      this.percentage = 0;
     }
   }
 };
@@ -119,6 +133,13 @@ export default {
     cursor: pointer;
     height: 40px;
     margin: 0 10px;
+  }
+}
+.pop-item{
+  display: block;
+  padding: 10px 0;
+  span{
+    margin-left: 5px;
   }
 }
 </style>
