@@ -1,21 +1,21 @@
 <template>
   <div>
     <div class="fr">
-      <svg-icon icon-class="question" class="icon-btn" />
-      <svg-icon icon-class="tick" class="icon-btn" />
+      <svg-icon icon-class="question" class="icon-btn" v-if='showCenterBottom'/>
+      <svg-icon icon-class="tick" class="icon-btn"  />
     </div>
-    <div class="header-container">
+    <div class="main-title-container">
       <div class="left">
         <svg-icon icon-class="left" class="left-icon" @click.native="$router.back()" />
-        <div class="center">
+        <div class="main-title-center">
           <span class="title">{{title}}</span>
-          <div>
+          <div class="center-bottom" v-if='showCenterBottom'>
             <svg-icon icon-class="End-Experiment" class="icon-btn" style="margin-right:10px" />
             <span style="width:100px;padding-left:10px;border-left:1px solid #bbb;">sample</span>
           </div>
         </div>
       </div>
-      <div class="right">
+      <div class="right" v-if='showCenterBottom'>
         <div class="pic">
           <img src="@/assets/End-Experiment-1.png" class="pic-icon" @click="handleClick" />
           <img src="@/assets/End-Experiment-2.png" class="pic-icon" @click="handleClick" />
@@ -55,10 +55,17 @@ export default {
   data() {
     return {
       dialogVisible: false,
-      percentage: 2
+      percentage: 2,
+      showCenterBottom:true,
     };
   },
-  created() {},
+  created() {
+    const arr = ['Custom Method','History','Performance Verification','pedestal','settings','help']
+    if (arr.lastIndexOf(this.title)!= -1) {
+        this.showCenterBottom = false
+    }
+
+  },
   mounted() {},
   methods: {
     handleClick() {
@@ -90,7 +97,7 @@ export default {
   }
 }
 
-.header-container {
+.main-title-container {
   border-bottom: 1px solid #ccc;
   padding: 10px;
   display: flex;
@@ -99,7 +106,7 @@ export default {
     display: flex;
     align-items: center;
 
-    .center {
+    .main-title-center {
       margin-left: 20px;
       display: flex;
       flex-direction: column;
@@ -108,7 +115,10 @@ export default {
         color: #0080ff;
         font-size: 20px;
         font-weight: 700;
-        margin-bottom: 10px;
+      }
+      .center-bottom{
+        margin-top: 10px;
+
       }
       .center-content {
         padding-left: 5px;

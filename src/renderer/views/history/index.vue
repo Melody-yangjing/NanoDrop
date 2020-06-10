@@ -1,7 +1,6 @@
 <template>
   <div class="history-container">
-    <headTitle title="History"></headTitle>
-
+    <mainTitle title='History'></mainTitle>
     <div class="history-content">
       <el-input placeholder="请输入内容" v-model="searchVal" style="width:200px">
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
@@ -54,10 +53,11 @@
 </template>
 
 <script>
-import headTitle from '@/components/head/index';
+import mainTitle from "@/components/mainTitle/index";
+
 export default {
   components: {
-    headTitle
+    mainTitle
   },
   data() {
     return {

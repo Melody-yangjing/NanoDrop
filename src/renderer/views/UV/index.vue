@@ -22,14 +22,21 @@
         inactive-color="#ccc"></el-switch>
     </div>
 
-    <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="Date" label="Date" width="180"></el-table-column>
-      <el-table-column prop="SampleName" label="SampleName" width="180"></el-table-column>
-      <el-table-column prop="Location" label="Location" width="180"></el-table-column>
-      <el-table-column prop="Pathlength Used" label="Pathlength Used" width="180"></el-table-column>
-      <el-table-column prop="Baseline" label="Baseline" width="180"></el-table-column>
-    </el-table>
 
+    <div style="padding: 20px;">
+      <el-table :data="tableData" style="width: 100%">
+        <el-table-column prop="Date" label="Date" width="180">
+        </el-table-column>
+        <el-table-column prop="SampleName" label="SampleName" width="180">
+        </el-table-column>
+        <el-table-column prop="Location" label="Location">
+        </el-table-column>
+        <el-table-column prop="Pathlength" label="Pathlength Used">
+        </el-table-column>
+        <el-table-column prop="Baseline" label="Baseline">
+        </el-table-column>
+      </el-table>
+    </div>
 
 
     <el-dialog title="Instrument Self-Test" :visible.sync="dialogVisible1" width="30%" center>
@@ -101,13 +108,21 @@
       },
 
       setLineOption(p) {
-        const _this = this
+        console.log(this.dataZoomStart);
         this.timeLineOption = {
           xAxis: {
             name: "Wavelength (nm)",
             nameLocation: "middle",
             nameGap: 30,
             type: "category",
+            minorTick: {
+              show:true
+            },
+
+            axisTick: {
+              alignWithLabel: true,
+              length: 5
+            },
             data: this.lineList.map(item => {
               return item[0];
             })
@@ -123,7 +138,7 @@
             splitLine: false,
           },
           legend: {
-            show: _this.lengendFlag,
+            show: this.lengendFlag,
             data: ["line1"],
             left: "left",
             top: 0
@@ -142,19 +157,19 @@
               markLine: {
                 data: [
                   {
-                    yAxis: _this.Abs || 110,
+                    yAxis: this.Abs || 110,
                     lineStyle: {
                       color: "deeppink"
                     }
                   },
                   {
-                    xAxis: _this.dataZoomStart || 33,
+                    xAxis: this.dataZoomStart || 33,
                     lineStyle: {
                       color: "green"
                     }
                   },
                   {
-                    xAxis: _this.dataZoomEnd || 40,
+                    xAxis: this.dataZoomEnd || 40,
                     lineStyle: {
                       color: "blue"
                     }
@@ -176,8 +191,8 @@
             {
               show: true,
               type: "slider",
-              start: 0 || _this.dataZoomStart,
-              end: _this.dataZoomEnd
+              start: 0,
+              end: 100
             },
             {
               type: 'slider',
@@ -202,16 +217,6 @@
     },
     watch: {
       Abs(a, b) {
-        if (this.Abs < 0) {
-          this.draggable = false;
-          this.Abs = this.position = 0;
-        } else if (this.Abs > 150) {
-          this.draggable = false;
-          this.Abs = this.position = 150;
-        } else {
-          this.draggable = true
-          this.position = this.Abs;
-        }
       }
     }
   };
@@ -246,7 +251,6 @@
       display: flex;
       justify-content: space-around;
       align-items: center;
-      border-bottom: 1px solid #ccc;
     }
 
     .input-box {

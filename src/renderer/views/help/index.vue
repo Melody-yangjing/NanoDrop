@@ -1,14 +1,15 @@
 <template>
   <div class="help-container">
-      <headTitle title="help"></headTitle>
+    <mainTitle title='help'></mainTitle>  
+
   </div>
 </template>
 
 <script>
-import headTitle from "@/components/head/index";
+import mainTitle from "@/components/mainTitle/index";
 export default {
   components: {
-    headTitle
+    mainTitle
   }
 };
 </script>

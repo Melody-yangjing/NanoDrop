@@ -1,6 +1,6 @@
 <template>
   <div class="performance-container">
-    <headTitle title="Performance Verification"></headTitle>
+    <mainTitle title='Performance Verification'></mainTitle>  
     <div class="content">
       <el-row :gutter="20" style="text-align:right">
         <el-button size="mini" type="primary">Run</el-button>
@@ -36,10 +36,10 @@
 </template>
 
 <script>
-import headTitle from "@/components/head/index";
+import mainTitle from "@/components/mainTitle/index";
 export default {
   components: {
-    headTitle
+    mainTitle
   },
   data() {
     return {

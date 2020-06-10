@@ -1,6 +1,6 @@
 <template>
   <div class="chemometric-container">
-    <headTitle title="Custom Method"></headTitle>
+    <mainTitle title='Custom Method'></mainTitle>
     <el-container>
       <el-aside width="300px">
         <div class="top">
@@ -53,10 +53,10 @@
 </template>
 
 <script>
-import headTitle from "@/components/head/index";
+import mainTitle from "@/components/mainTitle/index";
 export default {
   components: {
-    headTitle
+    mainTitle
   },
   data() {
     return {

@@ -1,6 +1,6 @@
 <template>
   <div class="settings-container">
-    <headTitle title="settings"></headTitle>
+    <mainTitle title='settings'></mainTitle>  
     <div class="mainContain">
       <el-row :gutter="20">
         <el-col :span="14">
@@ -34,10 +34,10 @@
 </template>
 
 <script>
-import headTitle from "@/components/head/index";
+import mainTitle from "@/components/mainTitle/index";
 export default {
   components: {
-    headTitle
+    mainTitle
   },
   data() {
     return {
